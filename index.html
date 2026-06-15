@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saketh Talasu — AI/ML & Full-Stack Engineer</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="AI/ML engineer and full-stack developer specializing in predictive maintenance agents, computer vision, and RAG systems. Final year B.Tech student at ANITS.">
+  <meta name="keywords" content="Saketh Talasu, AI/ML, Full-Stack Developer, Agentic AI, Predictive Maintenance, Computer Vision, React, Python">
+  <meta name="author" content="Saketh Talasu">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Framer Motion & React CDNs -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Custom Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            customBgDark: '#0A0A0F',
+            customBgLight: '#F7F7FA',
+            customSurfDark: '#12121A',
+            customSurfLight: '#FFFFFF',
+            accent: '#6366F1',
+            accentSec: '#06B6D4',
+            textPrimDark: '#F1F5F9',
+            textMutedDark: '#94A3B8',
+            textPrimLight: '#0F172A',
+            textMutedLight: '#64748B',
+            customBorderDark: 'rgba(255,255,255,0.08)',
+            customBorderLight: 'rgba(0,0,0,0.08)'
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Selection Colors */
+    ::selection {
+      background-color: rgba(99, 102, 241, 0.2);
+      color: #6366F1;
+    }
+
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0F;
+    }
+    .light ::-webkit-scrollbar-track {
+      background: #F7F7FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-customBgLight dark:bg-customBgDark text-textPrimLight dark:text-textPrimDark transition-colors duration-300">
+  
+  <div id="root"></div>
+
+  <!-- React Code Base (transpiled by Babel) -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+    const { motion, AnimatePresence, MotionConfig } = window.Motion;
+
+    // --- SVG Icon Components ---
+    const SunIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    );
+
+    const MoonIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+    );
+
+    const GithubIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+        <path d="M9 18c-4.51 2-5-2-7-2"/>
+      </svg>
+    );
+
+    const LinkedinIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+        <rect width="4" height="12" x="2" y="9" rx="1"/>
+        <circle cx="4" cy="4" r="2"/>
+      </svg>
+    );
+
+    const MailIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <rect width="20" height="16" x="2" y="4" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+    );
+
+    const ExternalLinkIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      </svg>
+    );
+
+    const ArrowDownIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    );
+
+    const DownloadIcon = ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" x2="12" y1="15" y2="3"/>
+      </svg>
+    );
+
+    const MenuIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="4" x2="20" y1="12" y2="12"/>
+        <line x1="4" x2="20" y1="6" y2="6"/>
+        <line x1="4" x2="20" y1="18" y2="18"/>
+      </svg>
+    );
+
+    const XIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" x2="6" y1="6" y2="18"/>
+        <line x1="6" x2="18" y1="6" y2="18"/>
+      </svg>
+    );
+
+
+    // --- Animated Neural Graph SVG background ---
+    function ConstellationBackground({ darkMode }) {
+      const nodeCount = 25;
+      const [nodes, setNodes] = useState([]);
+      const requestRef = useRef();
+
+      useEffect(() => {
+        // Initialize nodes
+        const initialNodes = Array.from({ length: nodeCount }, () => ({
+          x: Math.random() * 1000,
+          y: Math.random() * 1000,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          radius: 2 + Math.random() * 3,
+          phase: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.002 + Math.random() * 0.003
+        }));
+        setNodes(initialNodes);
+      }, []);
+
+      useEffect(() => {
+        if (nodes.length === 0) return;
+
+        let currentNodes = [...nodes];
+        const updatePhysics = () => {
+          currentNodes = currentNodes.map(node => {
+            let nx = node.x + node.vx;
+            let ny = node.y + node.vy;
+            let nvx = node.vx;
+            let nvy = node.vy;
+
+            // Boundary collision (bounce)
+            if (nx < 0 || nx > 1000) nvx = -nvx;
+            if (ny < 0 || ny > 1000) nvy = -nvy;
+
+            nx = Math.max(0, Math.min(1000, nx));
+            ny = Math.max(0, Math.min(1000, ny));
+
+            return {
+              ...node,
+              x: nx,
+              y: ny,
+              vx: nvx,
+              vy: nvy
+            };
+          });
+
+          setNodes(currentNodes);
+          requestRef.current = requestAnimationFrame(updatePhysics);
+        };
+
+        requestRef.current = requestAnimationFrame(updatePhysics);
+        return () => cancelAnimationFrame(requestRef.current);
+      }, [nodes.length === 0]);
+
+      const lines = useMemo(() => {
+        const result = [];
+        const threshold = 180;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < threshold) {
+              result.push({
+                id: `${i}-${j}`,
+                x1: nodes[i].x,
+                y1: nodes[i].y,
+                x2: nodes[j].x,
+                y2: nodes[j].y,
+                opacity: (1 - dist / threshold) * 0.15
+              });
+            }
+          }
+        }
+        return result;
+      }, [nodes]);
+
+      const nodeColor = darkMode ? '#6366F1' : '#4F46E5';
+      const lineColor = darkMode ? '#6366F1' : '#4F46E5';
+
+      return (
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          {lines.map(line => (
+            <line
+              key={line.id}
+              x1={line.x1}
+              y1={line.y1}
+              x2={line.x2}
+              y2={line.y2}
+              stroke={lineColor}
+              strokeWidth="1"
+              strokeOpacity={line.opacity}
+            />
+          ))}
+          {nodes.map((node, i) => {
+            const pulse = 1 + Math.sin(Date.now() * node.pulseSpeed + node.phase) * 0.35;
+            return (
+              <g key={i}>
+                <circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.radius * 2.5 * pulse}
+                  fill={nodeColor}
+                  fillOpacity={darkMode ? 0.08 : 0.04}
+                />
+                <circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.radius * pulse}
+                  fill={nodeColor}
+                  fillOpacity={darkMode ? 0.45 : 0.3}
+                />
+              </g>
+            );
+          })}
+        </svg>
+      );
+    }
+
+
+    // --- Animation Container Component ---
+    function FadeInUp({ children, className, delay = 0 }) {
+      return (
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: { opacity: 0, y: 35 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.65,
+                ease: [0.16, 1, 0.3, 1], // out-expo
+                delay: delay
+              }
+            }
+          }}
+          className={className}
+        >
+          {children}
+        </motion.div>
+      );
+    }
+
+
+    // --- Navigation Component ---
+    function Navbar({ darkMode, setDarkMode }) {
+      const [scrolled, setScrolled] = useState(false);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          setScrolled(window.scrollY > 80);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const navLinks = ['About', 'Skills', 'Experience', 'Projects', 'Certifications', 'Contact'];
+
+      return (
+        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled 
+            ? 'backdrop-blur-md bg-customBgLight/80 dark:bg-customBgDark/80 border-b border-black/5 dark:border-white/[0.06] py-3.5 shadow-lg shadow-black/5' 
+            : 'bg-transparent py-6 border-b border-transparent'
+        }`}>
+          <div className="max-w-[1100px] mx-auto px-6 flex items-center justify-between">
+            {/* Logo */}
+            <a href="#hero" className="font-display font-bold text-xl text-accent select-none" aria-label="Saketh Talasu Home">
+              ST
+            </a>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  className="text-sm font-body text-textMutedLight dark:text-textMutedDark hover:text-accent dark:hover:text-accent transition-colors duration-200"
+                >
+                  {link}
+                </a>
+              ))}
+            </div>
+
+            {/* Desktop Right Side CTA & Theme Toggle */}
+            <div className="hidden md:flex items-center space-x-4">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2.5 rounded-lg border border-black/5 dark:border-white/[0.06] text-textMutedLight dark:text-textMutedDark hover:text-accent dark:hover:text-accent hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all duration-200"
+                aria-label="Toggle visual theme"
+              >
+                {darkMode ? <SunIcon /> : <MoonIcon />}
+              </button>
+              
+              <a
+                href="./Saketh_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Resume"
+                className="bg-gradient-to-r from-accent to-[#4F46E5] hover:from-[#5A5FE0] hover:to-[#4338CA] text-white font-body text-xs font-semibold px-4 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-1.5 shadow-lg shadow-accent/25 hover:shadow-accent/40 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                Download Resume <DownloadIcon />
+              </a>
+            </div>
+
+            {/* Mobile Hamburger Controls */}
+            <div className="flex items-center space-x-3 md:hidden">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2 rounded-lg border border-black/5 dark:border-white/[0.06] text-textMutedLight dark:text-textMutedDark hover:text-accent dark:hover:text-accent"
+                aria-label="Toggle visual theme"
+              >
+                {darkMode ? <SunIcon /> : <MoonIcon />}
+              </button>
+              
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg border border-black/5 dark:border-white/[0.06] text-textMutedLight dark:text-textMutedDark"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <XIcon /> : <MenuIcon />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Dropdown Panel */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden border-t border-black/5 dark:border-white/[0.06] bg-customBgLight dark:bg-[#0E0E14] px-6 py-6 space-y-4 shadow-xl"
+              >
+                {navLinks.map((link) => (
+                  <a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-base font-body text-textMutedLight dark:text-textMutedDark hover:text-accent py-1"
+                  >
+                    {link}
+                  </a>
+                ))}
+                
+                <div className="pt-2">
+                  <a
+                    href="./Saketh_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Download Resume"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-[#4F46E5] hover:from-[#5A5FE0] hover:to-[#4338CA] text-white font-body text-sm font-semibold py-3 rounded-lg shadow-lg shadow-accent/15"
+                  >
+                    Download Resume <DownloadIcon />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </nav>
+      );
+    }
+
+
+    // --- Hero Section Component ---
+    function Hero({ darkMode }) {
+      const name = "Saketh Talasu";
+      const letters = Array.from(name);
+
+      const containerLetters = {
+        initial: { opacity: 0 },
+        animate: {
+          opacity: 1,
+          transition: { staggerChildren: 0.05, delayChildren: 0.15 }
+        }
+      };
+
+      const childLetter = {
+        initial: { opacity: 0, y: 20 },
+        animate: {
+          opacity: 1,
+          y: 0,
+          transition: { type: "spring", damping: 13, stiffness: 120 }
+        }
+      };
+
+      return (
+        <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden py-24">
+          {/* Drifting constallation background */}
+          <ConstellationBackground darkMode={darkMode} />
+          
+          <div className="relative z-10 max-w-[1100px] w-full mx-auto px-6 text-left">
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-4"
+            >
+              B.Tech CSE (AI & ML) · ANITS
+            </motion.div>
+
+            {/* Main Name Header */}
+            <motion.h1
+              variants={containerLetters}
+              initial="initial"
+              animate="animate"
+              className="text-[44px] sm:text-6xl md:text-[72px] font-display font-bold text-textPrimLight dark:text-textPrimDark tracking-tight leading-none mb-4"
+            >
+              {letters.map((char, index) => (
+                <motion.span key={index} variants={childLetter} className="inline-block">
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h1>
+
+            {/* Sub-role description */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.75 }}
+              className="text-lg sm:text-2xl font-display font-medium text-textMutedLight dark:text-textMutedDark mb-6"
+            >
+              AI/ML Engineer · Full-Stack Developer · Agentic AI Systems
+            </motion.div>
+
+            {/* Short Bio Paragraph */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="text-[15px] sm:text-base font-body text-textMutedLight dark:text-textMutedDark max-w-[520px] leading-relaxed mb-10"
+            >
+              I build end-to-end intelligent systems — predictive maintenance agents,
+              computer vision pipelines, RAG-based diagnosis engines, and full-stack
+              products. From sensor data to deployed APIs to user-facing dashboards.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.05 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+            >
+              <a
+                href="#projects"
+                className="bg-accent hover:bg-accent/90 text-white font-body text-sm font-semibold px-6 py-3.5 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-accent/15"
+              >
+                View Projects <ArrowDownIcon />
+              </a>
+              
+              <a
+                href="./Saketh_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Resume"
+                className="border border-black/10 dark:border-white/10 hover:border-accent hover:text-accent dark:hover:border-accent dark:hover:text-accent text-textPrimLight dark:text-textPrimDark font-body text-sm font-semibold px-6 py-3.5 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/5 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                Download Resume <DownloadIcon className="opacity-80" />
+              </a>
+
+              <div className="flex items-center justify-center gap-6 mt-4 sm:mt-0 sm:ml-4">
+                <a
+                  href="https://github.com/SAKETHTALASU08"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-xs font-mono text-textMutedLight dark:text-textMutedDark hover:text-accent transition-colors duration-200"
+                >
+                  GitHub <ExternalLinkIcon className="ml-1 opacity-70" />
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/saketh-talasu-845b88314/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-xs font-mono text-textMutedLight dark:text-textMutedDark hover:text-accent transition-colors duration-200"
+                >
+                  LinkedIn <ExternalLinkIcon className="ml-1 opacity-70" />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- About Section Component ---
+    function About() {
+      return (
+        <section id="about" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              
+              {/* Left Column Text details */}
+              <FadeInUp>
+                <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                  About
+                </div>
+                <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-6">
+                  Building where AI meets engineering
+                </h2>
+                
+                <div className="space-y-4 text-[15px] font-body text-textMutedLight dark:text-textMutedDark leading-relaxed">
+                  <p>
+                    I'm a final-year B.Tech student at ANITS specializing in AI & ML, with hands-on
+                    experience building industrial AI systems, computer vision applications, and
+                    full-stack data products.
+                  </p>
+                  <p>
+                    My work spans the full stack of intelligent systems: data pipelines and feature
+                    engineering, ML model training and evaluation, AI agent orchestration, and
+                    deployed web interfaces. I care about systems that actually work in production,
+                    not just notebooks.
+                  </p>
+                  <p>
+                    Currently wrapping up an AI & Data Engineering internship at Covasant Technologies,
+                    where I built a predictive maintenance system for industrial CNC equipment —
+                    integrating multi-sensor feature engineering, anomaly detection, failure prediction,
+                    and RAG-based AI agents into a unified architecture.
+                  </p>
+                </div>
+              </FadeInUp>
+
+              {/* Right Column Terminal Block */}
+              <FadeInUp delay={0.15}>
+                <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#0E0E15]">
+                  {/* MacOS Header Buttons */}
+                  <div className="flex items-center px-4 py-3 border-b border-white/[0.06] bg-[#141420]">
+                    <div className="flex space-x-1.5">
+                      <div className="w-3 h-3 rounded-full bg-[#EF4444]" />
+                      <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />
+                      <div className="w-3 h-3 rounded-full bg-[#10B981]" />
+                    </div>
+                    <div className="ml-4 text-xs font-mono text-gray-500 text-center flex-grow">
+                      about.json — bash
+                    </div>
+                  </div>
+                  
+                  {/* Colored Mock Terminal Output */}
+                  <div className="p-6 overflow-x-auto">
+                    <pre className="font-mono text-xs sm:text-[13px] leading-relaxed text-[#D4D4D8]">
+                      <span className="text-gray-500">&#123;</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"name"</span><span className="text-gray-500">:</span> <span className="text-[#34D399]">"Saketh Talasu"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"role"</span><span className="text-gray-500">:</span> <span className="text-[#34D399]">"AI/ML + Full-Stack Engineer"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"location"</span><span className="text-gray-500">:</span> <span className="text-[#34D399]">"Hyderabad, IN"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"education"</span><span className="text-gray-500">:</span> <span className="text-[#34D399]">"B.Tech CSE (AI & ML), 2027"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"current"</span><span className="text-gray-500">:</span> <span className="text-[#34D399]">"Covasant Technologies — Intern"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"github"</span><span className="text-gray-500">:</span> <span className="text-[#A78BFA]">"github.com/SAKETHTALASU08"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"linkedin"</span><span className="text-gray-500">:</span> <span className="text-[#A78BFA]">"linkedin.com/in/saketh-talasu-845b88314"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"interests"</span><span className="text-gray-500">:</span> <span className="text-gray-500">[</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Agentic AI Systems"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Computer Vision"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Predictive Analytics"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Full-Stack Products"</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-gray-500">]</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-[#06B6D4]">"open_to"</span><span className="text-gray-500">:</span> <span className="text-gray-500">[</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Internships"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"AI/ML Roles"</span><span className="text-gray-500">,</span>
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#34D399]">"Freelance Projects"</span>
+                      <br />
+                      &nbsp;&nbsp;<span className="text-gray-500">]</span>
+                      <br />
+                      <span className="text-gray-500">&#125;</span>
+                    </pre>
+                  </div>
+                </div>
+              </FadeInUp>
+
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Skills Section Component ---
+    function Skills() {
+      const skillGroups = [
+        {
+          title: "Languages",
+          skills: ["Python", "C", "JavaScript", "SQL"],
+          colSpan: "lg:col-span-4"
+        },
+        {
+          title: "AI / ML",
+          skills: ["TensorFlow", "Scikit-learn", "XGBoost", "LightGBM", "OpenCV", "RAG", "Explainable AI"],
+          colSpan: "lg:col-span-8"
+        },
+        {
+          title: "Web & Backend",
+          skills: ["React", "Node.js", "FastAPI", "MERN Stack", "REST APIs"],
+          colSpan: "lg:col-span-4"
+        },
+        {
+          title: "Cloud & Tools",
+          skills: ["AWS", "GCP", "Azure", "Databricks", "Power BI", "MLflow"],
+          colSpan: "lg:col-span-4"
+        },
+        {
+          title: "Databases",
+          skills: ["MongoDB", "SQLite", "SQL"],
+          colSpan: "lg:col-span-4"
+        }
+      ];
+
+      return (
+        <section id="skills" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Skills
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                Specialized Technical Capabilities
+              </h2>
+            </FadeInUp>
+
+            {/* Grid layout with dynamic column configurations for symmetry */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
+              {skillGroups.map((group, groupIdx) => (
+                <motion.div
+                  key={group.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: groupIdx * 0.08 }}
+                  className={`bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 ${group.colSpan}`}
+                >
+                  <label className="text-[13px] font-mono font-medium uppercase tracking-wider text-textMutedLight dark:text-textMutedDark mb-4 block">
+                    {group.title}
+                  </label>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1.5 text-xs font-mono rounded-full border border-accent/30 bg-accent/5 text-accent transition-all duration-200 hover:bg-accent hover:text-white hover:border-accent cursor-default"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Experience Timeline Component ---
+    function Experience() {
+      const experiences = [
+        {
+          date: "May 2026 – Jun 2026",
+          company: "Covasant Technologies, Hyderabad",
+          role: "AI & Data Engineering Intern",
+          bullets: [
+            "Built a three-tier predictive maintenance system integrating anomaly detection, failure prediction, and NLP-based fault diagnosis for industrial CNC equipment on the AI4I 2020 dataset.",
+            "Engineered a multi-sensor feature pipeline extracting statistical, time-domain, and frequency-domain features from vibration, temperature, current, pressure, and acoustic sensors.",
+            "Developed RAG-based AI agents for failure diagnosis, fix recommendation, and automated ticket generation using Databricks for scalable processing.",
+            "Tracked experiments with MLflow; integrated LightGBM and XGBoost models with threshold-tuned precision/recall tradeoffs."
+          ]
+        },
+        {
+          date: "Jun 2025 – Jul 2025",
+          company: "National Institute of Technology, Rourkela",
+          role: "Research Intern — Machine Learning",
+          bullets: [
+            "Developed and benchmarked CNN-based computer vision models for Intelligent Transport Systems (ITS), focusing on autonomous vehicle feasibility.",
+            "Implemented advanced image preprocessing pipelines and evaluated model performance using standard CV metrics.",
+            "Collaborated with research scholars on data-driven engineering problems."
+          ]
+        }
+      ];
+
+      return (
+        <section id="experience" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Experience
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                Professional & Research Experience
+              </h2>
+            </FadeInUp>
+
+            <div className="relative border-l border-accent/20 pl-6 sm:pl-10 space-y-12">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="relative"
+                >
+                  {/* Timeline Node Ring */}
+                  <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-customBgLight dark:bg-customBgDark border-2 border-accent flex items-center justify-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+                  </div>
+
+                  <div className="bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-xl p-6 shadow-sm hover:border-accent/30 transition-all duration-300 group">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                      <div>
+                        <span className="inline-block px-3 py-1 rounded-full text-xs font-mono bg-accent/5 border border-accent/20 text-accent mb-2">
+                          {exp.date}
+                        </span>
+                        <h3 className="text-lg md:text-xl font-display font-semibold text-textPrimLight dark:text-textPrimDark group-hover:text-accent transition-colors duration-200">
+                          {exp.role}
+                        </h3>
+                        <div className="text-sm font-body font-medium text-textMutedLight dark:text-textMutedDark">
+                          {exp.company}
+                        </div>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-3">
+                      {exp.bullets.map((bullet, idx) => (
+                        <li key={idx} className="text-[14px] leading-relaxed text-textMutedLight dark:text-textMutedDark flex items-start gap-2.5">
+                          <span className="text-accent mt-2.5 shrink-0 block w-1 h-1 rounded-full bg-accent" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Projects Section Component ---
+    function Projects() {
+      const projects = [
+        {
+          title: "Predictive Maintenance Agent Stack",
+          tech: ["Python", "XGBoost", "LightGBM", "Isolation Forest", "RAG", "MLflow", "Databricks"],
+          description: "End-to-end industrial AI system for CNC equipment failure prediction, anomaly detection, and AI-driven diagnosis.",
+          bullets: [
+            "Multi-sensor feature engineering pipeline (statistical, time-domain, frequency-domain) from 5 sensor streams",
+            "Three-tier ML architecture: failure predictor, anomaly detector, and NLP-based fault classifier with DistilBERT",
+            "RAG-based AI agents for diagnosis, fix recommendations, and automated ticket generation"
+          ],
+          github: "https://github.com/SAKETHTALASU08",
+          demo: "https://predictive-maintenance-ai-ml-system-acme-industries-cu8bfgritf.streamlit.app/"
+        },
+        {
+          title: "Traffic Sign Recognition System",
+          tech: ["MobileNetV2", "TensorFlow", "FastAPI", "React", "OpenCV", "Grad-CAM", "SQLite"],
+          description: "Full-stack ADAS-inspired application — from fine-tuned CV model to deployed React dashboard with explainability heatmaps.",
+          bullets: [
+            "MobileNetV2 fine-tuned on GTSRB dataset achieving 91%+ real-world accuracy",
+            "FastAPI REST inference API with SQLite logging; React (Vite) frontend supporting drag-and-drop and live webcam input",
+            "Grad-CAM explainability heatmaps via OpenCV for visual model transparency"
+          ],
+          github: "https://github.com/SAKETHTALASU08",
+          demo: "https://traffic-sign-recognition-system-tsr.vercel.app/"
+        },
+        {
+          title: "Sudhari Nuts Sales & Analytics Platform",
+          tech: ["React", "Node.js", "SQL", "Express", "REST API"],
+          description: "Full-stack sales management system with role-based access, analytics dashboards, and forecasting modules.",
+          bullets: [
+            "Role-based authentication with secure backend APIs and inventory tracking across product categories",
+            "Interactive dashboards with profit estimation and CSV/Excel export",
+            "Integrated sales forecasting module for business insights and inventory optimization"
+          ],
+          github: "https://github.com/SAKETHTALASU08",
+          demo: "https://sudhari-nuts.vercel.app/"
+        }
+      ];
+
+      return (
+        <section id="projects" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Projects
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                System Implementations
+              </h2>
+            </FadeInUp>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="relative group bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
+                >
+                  {/* Top Highlight border line dynamic on hover */}
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+
+                  <div>
+                    {/* Tech Stack tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tech.map((tag) => (
+                        <span key={tag} className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-accentSec/10 border border-accentSec/15 text-accentSec">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Title & Desc */}
+                    <h3 className="text-[20px] font-display font-semibold text-textPrimLight dark:text-textPrimDark mb-3 group-hover:text-accent transition-colors duration-200">
+                      {project.title}
+                    </h3>
+                    <p className="text-[14px] leading-relaxed text-textMutedLight dark:text-textMutedDark mb-5">
+                      {project.description}
+                    </p>
+
+                    {/* Highlights Bullet List */}
+                    <ul className="space-y-2.5 mb-8">
+                      {project.bullets.map((bullet, idx) => (
+                        <li key={idx} className="text-[13px] leading-relaxed text-textMutedLight dark:text-textMutedDark flex items-start gap-2">
+                          <span className="text-accentSec mt-2 block shrink-0 w-1 h-1 rounded-full bg-accentSec" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Footing links */}
+                  <div className="flex items-center space-x-5 pt-4 border-t border-black/5 dark:border-white/[0.06]">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono font-medium text-textMutedLight dark:text-textMutedDark hover:text-accent flex items-center gap-1 transition-colors duration-200"
+                    >
+                      GitHub <ExternalLinkIcon />
+                    </a>
+
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono font-medium text-textMutedLight dark:text-textMutedDark hover:text-accent flex items-center gap-1 transition-colors duration-200"
+                    >
+                      Live Demo <ExternalLinkIcon />
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Certifications Section Component ---
+    function Certifications() {
+      // Inline custom SVGs for the certification tiles
+      const cloudSvg = (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17.5 19A3.5 3.5 0 0 0 21 15.5c0-2.79-2.54-4.5-5-4.5-.48 0-.96.06-1.4.17A5.5 5.5 0 0 0 5 13c0 2.21 1.79 4 4 4h8.5Z" />
+        </svg>
+      );
+
+      const chartSvg = (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" x2="18" y1="20" y2="10"/>
+          <line x1="12" x2="12" y1="20" y2="4"/>
+          <line x1="6" x2="6" y1="20" y2="14"/>
+        </svg>
+      );
+
+      const codeSvg = (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+      );
+
+      const layoutSvg = (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <line x1="3" x2="21" y1="9" y2="9"/>
+          <line x1="9" x2="9" y1="21" y2="9"/>
+        </svg>
+      );
+
+      const certifications = [
+        {
+          name: "AWS Certified Cloud Practitioner",
+          issuer: "Amazon Web Services",
+          icon: cloudSvg
+        },
+        {
+          name: "Power BI for Business Professionals",
+          issuer: "Infosys Springboard",
+          icon: chartSvg
+        },
+        {
+          name: "Python Certification",
+          issuer: "HackerRank",
+          icon: codeSvg
+        },
+        {
+          name: "Web Development Certification",
+          issuer: "Internshala",
+          icon: layoutSvg
+        }
+      ];
+
+      return (
+        <section id="certifications" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Certifications
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                Industry Credentials
+              </h2>
+            </FadeInUp>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {certifications.map((cert, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="flex items-center gap-5 bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-xl p-5 shadow-sm hover:border-accent/25 transition-all duration-300"
+                >
+                  <div className="flex-shrink-0 p-3 bg-black/[0.02] dark:bg-white/[0.02] rounded-lg border border-black/5 dark:border-white/[0.06]">
+                    {cert.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-display font-semibold text-base text-textPrimLight dark:text-textPrimDark leading-snug">
+                      {cert.name}
+                    </h3>
+                    <p className="text-xs font-body text-textMutedLight dark:text-textMutedDark mt-1">
+                      {cert.issuer}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Leadership Section Component ---
+    function Leadership() {
+      const activities = [
+        {
+          title: "Student Organizer — IgniteHack (INVENTUM 2K26)",
+          date: "2026",
+          bullets: [
+            "Organized an 8-hour inter-collegiate hackathon end-to-end — planning, logistics, and operations",
+            "Coordinated 287 participants across 80 teams; collaborated with faculty and industry partners",
+            "Received appreciation certificate for leadership and execution"
+          ]
+        },
+        {
+          title: "Team Participant — National Entrepreneurship Challenge",
+          subtitle: "E-Cell, IIT Bombay",
+          date: "2025",
+          bullets: [
+            "Participated in a 6-month nationwide entrepreneurship program (NEC 2025 Basic Track)",
+            "Contributed to strategic initiatives and campus ecosystem development initiatives",
+            "Gained exposure to entrepreneurial leadership, structured problem-solving, and cross-team collaboration"
+          ]
+        }
+      ];
+
+      return (
+        <section id="leadership" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Leadership
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                Initiatives & Organization
+              </h2>
+            </FadeInUp>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {activities.map((act, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-xl p-6 shadow-sm hover:border-accent/25 transition-all duration-300"
+                >
+                  <div className="flex justify-between items-start gap-4 mb-4">
+                    <div>
+                      <h3 className="font-display font-semibold text-base sm:text-lg text-textPrimLight dark:text-textPrimDark">
+                        {act.title}
+                      </h3>
+                      {act.subtitle && (
+                        <p className="text-xs font-mono text-accentSec mt-1">{act.subtitle}</p>
+                      )}
+                    </div>
+                    <span className="text-xs font-mono px-2 py-1 bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/[0.06] rounded text-textMutedLight dark:text-textMutedDark shrink-0">
+                      {act.date}
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2.5">
+                    {act.bullets.map((bullet, idx) => (
+                      <li key={idx} className="text-xs sm:text-[13px] leading-relaxed text-textMutedLight dark:text-textMutedDark flex items-start gap-2.5">
+                        <span className="text-accent mt-1.5 shrink-0 block w-1 h-1 rounded-full bg-accent" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Education Section Component ---
+    function Education() {
+      const records = [
+        {
+          degree: "B.Tech, CSE (AI & ML)",
+          year: "2023 – 2027",
+          institution: "Anil Neerukonda Institute of Technology & Sciences",
+          score: ""
+        },
+        {
+          degree: "Intermediate (MPC)",
+          year: "2021 – 2023",
+          institution: "Tirumala Educational Institutions",
+          score: "Score: 97%"
+        },
+        {
+          degree: "Class X (SSC)",
+          year: "2019 – 2021",
+          institution: "Sri Chaitanya Junior College",
+          score: "Score: 99%"
+        }
+      ];
+
+      return (
+        <section id="education" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <FadeInUp>
+              <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                Education
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-12">
+                Academic Background
+              </h2>
+            </FadeInUp>
+
+            <div className="space-y-6">
+              {records.map((rec, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between py-4 border-b border-black/5 dark:border-white/[0.06] gap-4"
+                >
+                  <div className="space-y-1">
+                    <h3 className="font-display font-semibold text-lg text-textPrimLight dark:text-textPrimDark">
+                      {rec.degree}
+                    </h3>
+                    <p className="text-sm font-body text-textMutedLight dark:text-textMutedDark">
+                      {rec.institution}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-6 self-start sm:self-center shrink-0">
+                    {rec.score && (
+                      <span className="text-sm font-mono text-accentSec font-semibold">
+                        {rec.score}
+                      </span>
+                    )}
+                    <span className="text-xs font-mono px-3 py-1 bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/[0.06] rounded text-textMutedLight dark:text-textMutedDark">
+                      {rec.year}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Contact Form & Links Component ---
+    function Contact() {
+      const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+      const [isSubmitted, setIsSubmitted] = useState(false);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const { name, email, message } = formState;
+        
+        // Opens email client as local fallback
+        const mailtoUrl = `mailto:talasusaketh@gmail.com?subject=Contact from ${encodeURIComponent(name)}&body=Sender name: ${encodeURIComponent(name)}%0D%0ASender email: ${encodeURIComponent(email)}%0D%0A%0D%0A${encodeURIComponent(message)}`;
+        window.location.href = mailtoUrl;
+
+        setIsSubmitted(true);
+      };
+
+      return (
+        <section id="contact" className="py-24 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              
+              {/* Left Column Copy and details */}
+              <FadeInUp>
+                <div className="text-accentSec font-mono text-[13px] font-medium uppercase tracking-wider mb-2">
+                  Contact
+                </div>
+                <h2 className="text-3xl md:text-4xl font-display font-semibold text-textPrimLight dark:text-textPrimDark tracking-tight mb-6">
+                  Let's build something.
+                </h2>
+                <p className="text-[15px] font-body text-textMutedLight dark:text-textMutedDark leading-relaxed mb-8 max-w-md">
+                  Whether you're hiring for AI/ML, full-stack, or research roles —
+                  or looking for a collaborator on an interesting problem — reach
+                  out. I respond within 24 hours.
+                </p>
+
+                <div className="space-y-5">
+                  <a
+                    href="mailto:talasusaketh@gmail.com"
+                    className="flex items-center gap-3.5 text-base sm:text-lg font-display font-semibold text-textPrimLight dark:text-textPrimDark hover:text-accent transition-colors duration-200"
+                  >
+                    <div className="p-3 bg-black/[0.03] dark:bg-white/[0.03] rounded-lg border border-black/5 dark:border-white/[0.06] text-accent">
+                      <MailIcon className="w-5 h-5" />
+                    </div>
+                    talasusaketh@gmail.com
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/saketh-talasu-845b88314/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3.5 text-base sm:text-lg font-display font-semibold text-textPrimLight dark:text-textPrimDark hover:text-accent transition-colors duration-200"
+                  >
+                    <div className="p-3 bg-black/[0.03] dark:bg-white/[0.03] rounded-lg border border-black/5 dark:border-white/[0.06] text-accent">
+                      <LinkedinIcon className="w-5 h-5" />
+                    </div>
+                    linkedin.com/in/saketh-talasu-845b88314
+                  </a>
+
+                  <a
+                    href="https://github.com/SAKETHTALASU08"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3.5 text-base sm:text-lg font-display font-semibold text-textPrimLight dark:text-textPrimDark hover:text-accent transition-colors duration-200"
+                  >
+                    <div className="p-3 bg-black/[0.03] dark:bg-white/[0.03] rounded-lg border border-black/5 dark:border-white/[0.06] text-accent">
+                      <GithubIcon className="w-5 h-5" />
+                    </div>
+                    github.com/SAKETHTALASU08
+                  </a>
+                </div>
+              </FadeInUp>
+
+              {/* Right Column Interactive Form */}
+              <FadeInUp delay={0.15}>
+                <AnimatePresence mode="wait">
+                  {!isSubmitted ? (
+                    <motion.form
+                      key="contact-form"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                      onSubmit={handleSubmit}
+                      className="bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] p-6 sm:p-8 rounded-2xl shadow-sm space-y-5"
+                    >
+                      <div>
+                        <label htmlFor="name" className="text-xs font-mono font-medium text-textMutedLight dark:text-textMutedDark mb-2 block">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          required
+                          value={formState.name}
+                          onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                          className="w-full bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-accent text-textPrimLight dark:text-textPrimDark transition-all duration-200"
+                          placeholder="Your name"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="email" className="text-xs font-mono font-medium text-textMutedLight dark:text-textMutedDark mb-2 block">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          required
+                          value={formState.email}
+                          onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                          className="w-full bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-accent text-textPrimLight dark:text-textPrimDark transition-all duration-200"
+                          placeholder="your.email@example.com"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="message" className="text-xs font-mono font-medium text-textMutedLight dark:text-textMutedDark mb-2 block">
+                          Message
+                        </label>
+                        <textarea
+                          id="message"
+                          required
+                          rows="5"
+                          value={formState.message}
+                          onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                          className="w-full bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-accent text-textPrimLight dark:text-textPrimDark transition-all duration-200 resize-none"
+                          placeholder="Hi Saketh, let's connect..."
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full bg-accent hover:bg-accent/90 text-white font-body text-sm font-semibold py-3.5 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-accent/15"
+                      >
+                        Send Message →
+                      </button>
+                    </motion.form>
+                  ) : (
+                    <motion.div
+                      key="success-card"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4 }}
+                      className="flex flex-col items-center justify-center p-8 bg-white dark:bg-customSurfDark border border-black/5 dark:border-white/[0.06] rounded-2xl h-full min-h-[360px] text-center shadow-sm"
+                    >
+                      <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-5 text-green-500 border border-green-500/20 shadow-inner">
+                        {/* Interactive Self-Drawing Path checkmark */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <motion.path
+                            d="M20 6 9 17l-5-5"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 0.5, delay: 0.15 }}
+                          />
+                        </svg>
+                      </div>
+                      
+                      <h3 className="text-xl font-display font-semibold mb-2 text-textPrimLight dark:text-textPrimDark">
+                        Drafted Successfully!
+                      </h3>
+                      <p className="text-[14px] leading-relaxed text-textMutedLight dark:text-textMutedDark max-w-xs mb-6">
+                        Your default email client has been launched with the drafted message. Send it to <strong className="text-accent font-semibold font-mono">talasusaketh@gmail.com</strong>.
+                      </p>
+
+                      <button
+                        onClick={() => {
+                          setIsSubmitted(false);
+                          setFormState({ name: '', email: '', message: '' });
+                        }}
+                        className="text-xs font-mono font-medium px-4 py-2 border border-accent/25 rounded-full text-accent hover:bg-accent hover:text-white transition-all duration-200"
+                      >
+                        Send Another Message
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </FadeInUp>
+
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+
+    // --- Footer Component ---
+    function Footer() {
+      return (
+        <footer className="py-12 border-t border-black/5 dark:border-white/[0.06]">
+          <div className="max-w-[1100px] mx-auto px-6 text-center">
+            <p className="text-xs sm:text-[13px] font-body text-textMutedLight dark:text-textMutedDark">
+              © 2026 Saketh Talasu &middot; Built with React & Tailwind
+            </p>
+            
+            <div className="flex items-center justify-center gap-5 mt-5 text-textMutedLight dark:text-textMutedDark">
+              <a
+                href="https://github.com/SAKETHTALASU08"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors duration-200"
+                aria-label="GitHub Profile"
+              >
+                <GithubIcon />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/saketh-talasu-845b88314/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors duration-200"
+                aria-label="LinkedIn Profile"
+              >
+                <LinkedinIcon />
+              </a>
+
+              <a
+                href="mailto:talasusaketh@gmail.com"
+                className="hover:text-accent transition-colors duration-200"
+                aria-label="Send Email"
+              >
+                <MailIcon />
+              </a>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+
+    // --- Main App Setup ---
+    function App() {
+      // Load dark mode state
+      const [darkMode, setDarkMode] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) return savedTheme === 'dark';
+        return true; // Default is Dark Mode
+      });
+
+      useEffect(() => {
+        if (darkMode) {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        }
+      }, [darkMode]);
+
+      return (
+        <MotionConfig reducedMotion="user">
+          <div className="min-h-screen">
+            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+            <main className="max-w-[1100px] mx-auto">
+              <Hero darkMode={darkMode} />
+              <About />
+              <Skills />
+              <Experience />
+              <Projects />
+              <Certifications />
+              <Leadership />
+              <Education />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        </MotionConfig>
+      );
+    }
+
+    // Render tree inside DOM root
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
